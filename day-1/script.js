@@ -23,6 +23,6 @@ fetch("input")
             difference += Math.abs(list_left[i] - list_right[i]);
         }
 
-        console.log(difference)
+        console.log("part 1: " + difference)
     })
     .catch((e) => console.error(e));
