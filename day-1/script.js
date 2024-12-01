@@ -24,5 +24,25 @@ fetch("input")
         }
 
         console.log("part 1: " + difference)
+
+        var number_frequency = {};
+
+        for (let i = 0; i < list_left.length; i++) {
+            number_frequency[list_left[i]] = 0
+            for (let j = 0; j < list_right.length; j++) {
+                if (list_left[i] == list_right[j]) {
+                    number_frequency[list_left[i]] += 1
+                }   
+            }
+        };
+
+        // console.log(number_frequency);
+        var similarity_score = 0;
+
+        for (let i = 0; i < list_left.length; i++) {
+            similarity_score += (list_left[i] * number_frequency[list_left[i]])
+        }
+
+        console.log("part 2: " + similarity_score)
     })
     .catch((e) => console.error(e));
