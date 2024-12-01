@@ -36,7 +36,6 @@ fetch("input")
             }
         };
 
-        // console.log(number_frequency);
         var similarity_score = 0;
 
         for (let i = 0; i < list_left.length; i++) {
