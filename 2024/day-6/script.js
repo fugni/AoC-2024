@@ -42,6 +42,7 @@ fetch("input")
         }
 
         function move() {
+            move_count++;
             switch (guard_direction) {
                 case "up":
                     if (lab[guard_y - 1] === undefined) {
@@ -98,42 +99,55 @@ fetch("input")
             }
         }
 
-        // 16900
+        let loop_count = 0;
 
-        function testGuard(x, y, dir, current_lab, attempt) {
-            guard_x = x;
-            guard_y = y;
-            guard_direction = dir;
-            lab = current_lab;
-            guard_history = lab;
+        function testGuard(modified_x, modified_y) {
+            guard_x = initial_guard_x;
+            guard_y = initial_guard_y;
+            guard_direction = initial_guard_direction;
+            lab = structuredClone(initial_lab);
 
-            let move_count
+            lab[modified_y][modified_x] = "#"
 
-            while ((guard_x >= 0 && guard_x < lab[0].length) && (guard_y >= 0 && guard_y < lab.length)) {
+            guard_history = structuredClone(lab);
+
+            move_count = 0;
+
+            while (((guard_x >= 0 && guard_x < lab[0].length) && (guard_y >= 0 && guard_y < lab.length)) && move_count < 10000) {
                 move()
             }
 
-            let position_count = 0;
+            // let position_count = 0;
 
-            // count historic positions
-            for (let i = 0; i < guard_history.length; i++) {
-                for (let j = 0; j < guard_history[i].length; j++) {
-                    if (guard_history[i][j] === "X") {
-                        position_count++
-                    }
-                }
+            // // count historic positions
+            // for (let i = 0; i < guard_history.length; i++) {
+            //     for (let j = 0; j < guard_history[i].length; j++) {
+            //         if (guard_history[i][j] === "X") {
+            //             position_count++
+            //         }
+            //     }
+            // }
+
+            // console.log("positions is: " + position_count)
+
+            if (move_count === 10000) {
+
+                loop_count++
+                console.log("looped")
             }
 
-            console.log("positions of: " + attempt + " is: " + position_count)
         }
 
-        testGuard(initial_guard_x, initial_guard_y, initial_guard_direction, initial_lab, 0)
+        for (let i = 0; i < 16900; i++) {
+            x = (i % 130)
+            y = (Math.floor(i / 130))
 
+            console.log(y,x)
 
+            testGuard(x, y)
+        }
 
-        // console.log(guard_x, guard_y)
-        // console.log(lab);
-        // console.log(guard_history)
+        console.log("lops: " + loop_count)
 
 
     })
